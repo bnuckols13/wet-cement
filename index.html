@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WET CEMENT — Neuroscience | Mental Health Co-Op</title>
+<meta name="description" content="The five mechanisms building your brain: myelination, the body clock, the default mode network, amygdala-prefrontal wiring, and critical-period plasticity. Myth-bust, neural pinball, and real citations." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  .coop-neuro {
+    --bg: #0a0014;
+    --ink: #f5f1e8;
+    --pink: #ff2e9a;
+    --cyan: #00f0ff;
+    --lime: #c8ff00;
+    --gold: #ffd23f;
+    --red: #ff3344;
+    --surface: #14001f;
+    --surface-2: #1f0030;
+    --border: #ff2e9a;
+    --muted: rgba(245, 241, 232, 0.6);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(255, 46, 154, 0.35), transparent 45%),
+      radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.3), transparent 45%),
+      radial-gradient(circle at 50% 80%, rgba(200, 255, 0, 0.18), transparent 50%),
+      linear-gradient(180deg, #0a0014 0%, #1a0033 40%, #220047 100%);
+    padding-bottom: 2rem;
+  }
+  body { margin: 0; background: #0a0014; }
+
+  .coop-neuro *,
+  .coop-neuro *::before,
+  .coop-neuro *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* ============= MARQUEE ============= */
+  .marquee {
+    background: var(--lime);
+    color: #000;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom: 3px solid #000;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    padding: 0.5rem 0;
+  }
+  .marquee-track {
+    display: inline-block;
+    animation: scroll 32s linear infinite;
+    padding-left: 100%;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
+  .marquee span { padding: 0 1.5rem; }
+  .marquee .dot { color: var(--pink); }
+
+  /* ============= HERO ============= */
+  .hero {
+    position: relative;
+    padding: 3rem 1.5rem 1rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .coop-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(2.6rem, 10vw, 7rem);
+    line-height: 0.88;
+    letter-spacing: 0.01em;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--pink) 55%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+      0 0 30px rgba(255, 46, 154, 0.6),
+      0 0 60px rgba(0, 240, 255, 0.3);
+    filter: drop-shadow(4px 4px 0 #000);
+    animation: wobble 4s ease-in-out infinite;
+  }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-1deg) scale(1); }
+    50% { transform: rotate(1deg) scale(1.02); }
+  }
+
+  .hero .deck {
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(0.95rem, 2.3vw, 1.35rem);
+    color: var(--ink);
+    margin-top: 0.8rem;
+    letter-spacing: 0.15em;
+    opacity: 0.85;
+  }
+  .hero .deck .blink { color: var(--lime); animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ============= DIAGRAM ============= */
+  .diagram-wrap {
+    position: relative;
+    max-width: 1100px;
+    margin: 2rem auto 3rem;
+    padding: 1rem;
+    aspect-ratio: 16 / 11;
+    min-height: 480px;
+  }
+
+  .stage {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center bottom, rgba(0, 240, 255, 0.2), transparent 60%),
+      linear-gradient(180deg, rgba(255, 46, 154, 0.08), rgba(0, 0, 0, 0.4));
+    border: 3px dashed var(--cyan);
+    border-radius: 18px;
+    box-shadow:
+      0 0 40px rgba(0, 240, 255, 0.4),
+      inset 0 0 80px rgba(255, 46, 154, 0.18);
+  }
+
+  .statue {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(220px, 38%, 360px);
+    aspect-ratio: 3 / 4;
+    z-index: 2;
+    filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.6));
+  }
+  .statue svg { width: 100%; height: 100%; display: block; position: relative; z-index: 1; }
+
+  .face-disc {
+    position: absolute;
+    left: 36%;
+    top: 8.25%;
+    width: 28%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 30%, #ffffff, var(--cyan) 34%, var(--pink) 70%, #14001f 100%);
+    border: 4px solid var(--gold);
+    box-shadow:
+      0 0 0 6px #000,
+      0 0 30px rgba(255, 210, 63, 0.9),
+      0 0 60px rgba(255, 46, 154, 0.7);
+    z-index: 3;
+    animation: bob 3.6s ease-in-out infinite;
+    display: grid;
+    place-items: center;
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    line-height: 1;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+  }
+
+  .halo {
+    position: absolute;
+    left: 30%;
+    top: 2%;
+    width: 40%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 20px var(--gold), inset 0 0 20px var(--gold);
+    z-index: 2;
+    animation: spin 14s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .label {
+    position: absolute;
+    background: #000;
+    color: var(--ink);
+    border: 3px solid var(--pink);
+    padding: 0.45rem 0.7rem;
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(0.7rem, 1.4vw, 0.95rem);
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+    box-shadow: 5px 5px 0 var(--cyan);
+    z-index: 4;
+    white-space: nowrap;
+    transform: rotate(var(--rot, 0deg));
+  }
+  .label.cyan   { border-color: var(--cyan); box-shadow: 5px 5px 0 var(--pink); }
+  .label.lime   { border-color: var(--lime); box-shadow: 5px 5px 0 var(--pink); color: var(--lime); }
+  .label.gold   { border-color: var(--gold); box-shadow: 5px 5px 0 var(--cyan); color: var(--gold); }
+  .label.red    { border-color: var(--red);  box-shadow: 5px 5px 0 var(--lime); color: var(--red); background: #1a0000; }
+  .label small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(245,241,232,0.6);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .arrows {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .float-emoji {
+    position: absolute;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    z-index: 3;
+    animation: float 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(255,210,63,0.8));
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-10deg); }
+    50%      { transform: translateY(-14px) rotate(10deg); }
+  }
+
+  .aura-stat {
+    position: absolute;
+    font-family: 'Bungee', sans-serif;
+    color: var(--lime);
+    text-shadow: 0 0 12px var(--lime), 3px 3px 0 #000;
+    font-size: clamp(1rem, 2.4vw, 1.8rem);
+    z-index: 4;
+    transform: rotate(-6deg);
+    line-height: 1;
+  }
+
+  /* ============= CONTAINER + NAV ============= */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-top: 3px solid var(--pink);
+    padding-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-header h2 {
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--cyan);
+    text-shadow: 3px 3px 0 #000, 0 0 20px var(--cyan);
+    letter-spacing: 0.04em;
+  }
+  .section-header .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+  }
+  .section-header .meta kbd {
+    font-family: inherit;
+    background: #000;
+    border: 1px solid var(--pink);
+    padding: 0.1rem 0.5rem;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    color: var(--pink);
+  }
+
+  .nav-pads {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.7rem;
+    margin-bottom: 2.5rem;
+  }
+  .nav-pad {
+    position: relative;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--ink);
+    padding: 0.9rem 1rem;
+    text-align: left;
+    font: inherit;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    box-shadow: 4px 4px 0 var(--cyan);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .nav-pad .pad-num {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 0.18em;
+    margin-bottom: 0.3rem;
+  }
+  .nav-pad:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--lime);
+    background: var(--surface-2);
+  }
+  .nav-pad.active {
+    background: linear-gradient(135deg, #ff2e9a 0%, #00f0ff 100%);
+    color: #000;
+    box-shadow: 4px 4px 0 var(--lime), 0 0 30px rgba(255, 46, 154, 0.6);
+  }
+  .nav-pad.active .pad-num { color: #000; }
+
+  /* ============= PAGES ============= */
+  .page { display: none; animation: fadein 0.3s ease; }
+  .page.active { display: block; }
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .timing-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: #000;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    margin-right: 0.6rem;
+    vertical-align: middle;
+  }
+
+  h3.page-h {
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+    color: var(--pink);
+    text-shadow: 2px 2px 0 #000, 0 0 18px var(--pink);
+    letter-spacing: 0.03em;
+    margin: 2rem 0 1rem;
+  }
+
+  p.body {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 1rem;
+    font-weight: 600;
+  }
+  p.body strong { color: var(--lime); font-weight: 800; }
+  p.body em { color: var(--cyan); font-style: normal; }
+
+  .callout {
+    background: var(--surface);
+    border: 2px solid var(--cyan);
+    border-left-width: 8px;
+    padding: 1rem 1.2rem;
+    margin: 1.2rem 0;
+    border-radius: 3px;
+    box-shadow: 4px 4px 0 var(--pink);
+  }
+  .callout .callout-label {
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--cyan);
+    margin-bottom: 0.5rem;
+  }
+  .callout p { font-family: 'Inter', sans-serif; font-weight: 600; line-height: 1.6; }
+  .callout.warm { border-color: var(--gold); box-shadow: 4px 4px 0 var(--cyan); }
+  .callout.warm .callout-label { color: var(--gold); }
+  .callout.red { border-color: var(--red); box-shadow: 4px 4px 0 var(--lime); }
+  .callout.red .callout-label { color: var(--red); }
+
+  .divider {
+    border: none;
+    border-top: 2px dashed var(--pink);
+    margin: 2rem 0;
+    opacity: 0.6;
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 0.8rem; }
+  .step {
+    display: flex;
+    gap: 1rem;
+    background: var(--surface);
+    border: 2px solid var(--pink);
+    padding: 1rem 1.2rem;
+    border-radius: 3px;
+    box-shadow: 4px 4px 0 var(--cyan);
+  }
+  .step-num {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    text-shadow: 0 0 12px var(--gold), 2px 2px 0 #000;
+    min-width: 40px;
+  }
+  .step-q { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; line-height: 1.5; }
+  .step-hint { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+
+  /* ============= MECHANISM PADS (SCIENCE PAGE) ============= */
+  .mech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.9rem;
+    margin: 1.5rem 0;
+  }
+  .mech-pad {
+    position: relative;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--ink);
+    padding: 1.2rem 1rem 1.5rem;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    min-height: 130px;
+    box-shadow: 4px 4px 0 var(--cyan);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .mech-pad::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(255, 46, 154, 0.15) 100%);
+    pointer-events: none;
+  }
+  .mech-pad:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--lime);
+    background: var(--surface-2);
+  }
+  .mech-pad .mech-key {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.7rem;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    text-shadow: 0 0 10px var(--gold);
+  }
+  .mech-pad .mech-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--cyan);
+    letter-spacing: 0.18em;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+  .mech-pad .mech-title {
+    font-family: 'Bungee', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .mech-pad .mech-status {
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: var(--lime);
+    text-shadow: 0 0 8px var(--lime);
+    margin-top: 0.7rem;
+  }
+  .mech-pad.open {
+    background: linear-gradient(135deg, rgba(255, 46, 154, 0.25) 0%, rgba(0, 240, 255, 0.15) 100%);
+    border-color: var(--lime);
+    box-shadow: 4px 4px 0 var(--lime), 0 0 30px rgba(200, 255, 0, 0.4);
+  }
+
+  .mech-detail {
+    background: var(--surface);
+    border: 2px solid var(--lime);
+    border-radius: 3px;
+    padding: 1.4rem 1.5rem;
+    margin: 0.5rem 0 1.5rem;
+    box-shadow: 5px 5px 0 var(--pink);
+    display: none;
+  }
+  .mech-detail.show { display: block; animation: fadein 0.35s ease; }
+  .mech-detail h4 {
+    font-family: 'Bungee', sans-serif;
+    color: var(--gold);
+    text-shadow: 2px 2px 0 #000, 0 0 14px var(--gold);
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+  .mech-detail p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 1.65;
+    margin-bottom: 0.85rem;
+    color: var(--ink);
+  }
+  .mech-detail p strong { color: var(--lime); }
+  .mech-detail p em { color: var(--cyan); font-style: normal; }
+  .mech-detail .aside {
+    background: rgba(0, 0, 0, 0.4);
+    border-left: 4px solid var(--gold);
+    padding: 0.7rem 1rem;
+    margin: 0.8rem 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--gold);
+    font-size: 0.92rem;
+  }
+  .mech-detail .citation {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    border-top: 1px dashed var(--pink);
+    padding-top: 0.7rem;
+    margin-top: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+  .mech-detail .caveat {
+    background: rgba(255, 51, 68, 0.12);
+    border-left: 4px solid var(--red);
+    padding: 0.7rem 1rem;
+    margin: 0.8rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--red);
+    line-height: 1.55;
+  }
+
+  /* ============= GAME ============= */
+  .game-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+  }
+  .game-counter { font-family: 'Bungee', sans-serif; color: var(--gold); }
+  .game-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 46, 154, 0.15);
+    border: 1px solid var(--pink);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .game-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--lime));
+    box-shadow: 0 0 12px var(--lime);
+    width: 0;
+    transition: width 0.4s ease;
+  }
+  .game-score-display { color: var(--lime); font-family: 'Bungee', sans-serif; }
+
+  .scenario-card {
+    background: var(--surface);
+    border: 2px solid var(--cyan);
+    border-radius: 3px;
+    padding: 1.5rem;
+    box-shadow: 5px 5px 0 var(--pink);
+  }
+  .scenario-setup {
+    font-family: 'Bungee', sans-serif;
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.7rem;
+  }
+  .scenario-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 1.3rem;
+  }
+  .vote-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .vote-btn {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    padding: 0.9rem 1rem;
+    border: 2px solid var(--pink);
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 4px 4px 0 var(--cyan);
+    transition: transform 0.08s ease, box-shadow 0.12s ease;
+  }
+  .vote-btn:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--lime);
+  }
+  .vote-btn:disabled { cursor: default; opacity: 0.7; }
+  .vote-btn.correct {
+    background: linear-gradient(135deg, var(--lime), var(--cyan));
+    color: #000;
+    border-color: var(--lime);
+    box-shadow: 4px 4px 0 var(--gold);
+    opacity: 1;
+  }
+  .vote-btn.wrong {
+    background: var(--red);
+    color: #000;
+    border-color: var(--red);
+    box-shadow: 4px 4px 0 var(--pink);
+    opacity: 0.85;
+  }
+  .reveal-panel {
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px dashed var(--cyan);
+    border-radius: 3px;
+    display: none;
+  }
+  .reveal-panel.show { display: block; animation: fadein 0.3s ease; }
+  .reveal-verdict {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+  .reveal-verdict.is-fact { color: var(--lime); text-shadow: 0 0 14px var(--lime); }
+  .reveal-verdict.is-myth { color: var(--red); text-shadow: 0 0 14px var(--red); }
+  .reveal-why { font-family: 'Inter', sans-serif; font-weight: 600; line-height: 1.6; color: var(--ink); margin-bottom: 0.7rem; }
+  .reveal-citation { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  .game-controls { margin-top: 1.2rem; }
+  .game-next-btn {
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    padding: 0.7rem 1.4rem;
+    border: 2px solid var(--lime);
+    background: var(--surface);
+    color: var(--lime);
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 4px 4px 0 var(--pink);
+    transition: transform 0.08s ease;
+  }
+  .game-next-btn:hover { transform: translate(-2px, -2px); }
+
+  /* ============= DISCUSSION ============= */
+  .questions { display: flex; flex-direction: column; gap: 1rem; }
+  .question {
+    background: var(--surface);
+    border: 2px solid var(--gold);
+    padding: 1.1rem 1.3rem;
+    border-radius: 3px;
+    box-shadow: 4px 4px 0 var(--cyan);
+  }
+  .question-label {
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .question-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  .question-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    line-height: 1.55;
+  }
+
+  /* ============= CLOSING / OPTIONS ============= */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.9rem;
+    margin: 1.3rem 0;
+  }
+  .option {
+    position: relative;
+    background: var(--surface);
+    border: 2px solid var(--pink);
+    padding: 1.1rem 1.1rem 1.3rem;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+    box-shadow: 4px 4px 0 var(--cyan);
+    border-radius: 3px;
+    min-height: 130px;
+  }
+  .option:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--lime);
+    background: var(--surface-2);
+  }
+  .option.selected {
+    background: linear-gradient(135deg, var(--lime), var(--cyan));
+    color: #000;
+    border-color: var(--gold);
+    box-shadow: 4px 4px 0 var(--gold), 0 0 30px rgba(200, 255, 0, 0.5);
+  }
+  .option-label {
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .option.selected .option-label { color: #000; }
+  .option-desc {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--ink);
+    font-size: 0.92rem;
+  }
+  .option.selected .option-desc { color: #000; }
+
+  /* ============= PAGE NAV BAR ============= */
+  .page-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 2.5rem 0 1rem;
+    flex-wrap: wrap;
+  }
+  .page-nav button {
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    padding: 0.7rem 1.2rem;
+    border: 2px solid var(--pink);
+    background: var(--surface);
+    color: var(--pink);
+    cursor: pointer;
+    border-radius: 3px;
+    box-shadow: 4px 4px 0 var(--cyan);
+    transition: transform 0.08s ease;
+  }
+  .page-nav button:hover { transform: translate(-2px, -2px); }
+  .page-nav button.ghost {
+    border-color: var(--muted);
+    color: var(--muted);
+    box-shadow: 4px 4px 0 transparent;
+    cursor: default;
+  }
+
+  /* ============= FOOTER ============= */
+  footer {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 3rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    text-align: center;
+    border-top: 1px solid var(--pink);
+  }
+  footer strong { color: var(--lime); }
+  footer .coop-credit { display: block; margin-top: 0.8rem; color: var(--muted); letter-spacing: 0.12em; }
+
+  /* ============= PINBALL ============= */
+  .pinball-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin: 1.2rem 0 1.5rem;
+  }
+  .pb-stat {
+    background: #000;
+    border: 2px solid var(--pink);
+    border-radius: 3px;
+    padding: 0.7rem 0.8rem;
+    box-shadow: 4px 4px 0 var(--cyan);
+    text-align: center;
+  }
+  .pb-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    color: var(--cyan);
+    margin-bottom: 0.25rem;
+  }
+  .pb-stat-val {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+  .pb-multi-val { color: var(--gold); text-shadow: 0 0 12px var(--gold); }
+  .pb-streak-val { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
+  .pb-score-val { color: var(--lime); text-shadow: 0 0 12px var(--lime); }
+
+  .pinball-table {
+    position: relative;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255, 46, 154, 0.18), transparent 60%),
+      linear-gradient(180deg, rgba(0,0,0,0.5), rgba(34, 0, 71, 0.6));
+    border: 3px solid var(--cyan);
+    border-radius: 18px;
+    padding: 1.5rem 1.2rem 1.2rem;
+    box-shadow:
+      0 0 40px rgba(0, 240, 255, 0.4),
+      inset 0 0 80px rgba(255, 46, 154, 0.18);
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+  }
+  .pb-flash {
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 6;
+  }
+  .pb-drop {
+    position: relative;
+    min-height: 140px;
+    padding: 2.5rem 0.6rem 1rem;
+    text-align: center;
+    border-bottom: 2px dashed rgba(255, 46, 154, 0.4);
+    margin-bottom: 1.4rem;
+  }
+  .pb-stimulus {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .pb-ball {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff, var(--lime) 40%, var(--cyan));
+    box-shadow:
+      0 0 12px var(--lime),
+      0 0 24px var(--cyan),
+      inset -3px -3px 4px rgba(0,0,0,0.3);
+    transform: translateX(-50%);
+    z-index: 4;
+  }
+
+  .pb-bumpers {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
+  .pb-bumper {
+    position: relative;
+    font-family: 'Bungee', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    border: 3px solid var(--pink);
+    padding: 1.2rem 0.4rem 0.9rem;
+    border-radius: 22px 22px 6px 6px;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.18s ease;
+    box-shadow: 4px 4px 0 var(--cyan), inset 0 0 18px rgba(255, 46, 154, 0.25);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-align: center;
+    overflow: hidden;
+  }
+  .pb-bumper::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 60%;
+    height: 12px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.25), transparent);
+    transform: translateX(-50%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .pb-bumper:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--lime), inset 0 0 18px rgba(200, 255, 0, 0.25);
+  }
+  .pb-bumper:disabled { cursor: default; }
+  .pb-bumper-icon {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+    filter: drop-shadow(0 0 6px rgba(255, 46, 154, 0.7));
+  }
+  .pb-bumper-label {
+    display: block;
+    color: var(--ink);
+    font-size: 0.7rem;
+  }
+  .pb-bumper.hit {
+    background: linear-gradient(135deg, var(--lime), var(--gold));
+    color: #000;
+    border-color: var(--lime);
+    box-shadow: 4px 4px 0 var(--gold), 0 0 40px var(--lime), inset 0 0 20px rgba(255, 255, 255, 0.4);
+    animation: pop 0.45s ease;
+  }
+  .pb-bumper.hit .pb-bumper-label { color: #000; }
+  .pb-bumper.correct-flash {
+    background: linear-gradient(135deg, var(--cyan), var(--lime));
+    color: #000;
+    border-color: var(--cyan);
+    box-shadow: 4px 4px 0 var(--lime), 0 0 40px var(--cyan);
+    animation: pop 0.45s ease;
+  }
+  .pb-bumper.correct-flash .pb-bumper-label { color: #000; }
+  .pb-bumper.miss {
+    background: var(--red);
+    border-color: var(--red);
+    color: #000;
+    box-shadow: 4px 4px 0 var(--pink), 0 0 20px var(--red);
+    animation: shake 0.4s ease;
+  }
+  .pb-bumper.miss .pb-bumper-label { color: #000; }
+  @keyframes pop {
+    0%, 100% { transform: scale(1); }
+    40% { transform: scale(1.15); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+  }
+
+  .pb-reveal {
+    margin-top: 1.2rem;
+    padding: 1rem 1.1rem;
+    background: rgba(0,0,0,0.55);
+    border: 1px dashed var(--cyan);
+    border-radius: 3px;
+    display: none;
+  }
+  .pb-reveal.show { display: block; animation: fadein 0.3s ease; }
+  .pb-reveal .pb-verdict {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.06em;
+  }
+  .pb-reveal.is-hit .pb-verdict { color: var(--lime); text-shadow: 0 0 12px var(--lime); }
+  .pb-reveal.is-miss .pb-verdict { color: var(--red); text-shadow: 0 0 12px var(--red); }
+  .pb-reveal .pb-why {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .pb-controls { margin: 0 0 1rem; }
+
+  /* ============= MOBILE ============= */
+  @media (max-width: 720px) {
+    .diagram-wrap { aspect-ratio: 4 / 5; min-height: 640px; padding: 0.5rem; }
+    .label { font-size: 0.6rem; padding: 0.3rem 0.5rem; box-shadow: 3px 3px 0 var(--cyan); max-width: 150px !important; }
+    .label small { display: none; }
+    .label.red { bottom: 12% !important; }
+    .statue { width: 50%; }
+    .aura-stat { font-size: 0.85rem; right: 6% !important; top: 2% !important; }
+    .float-emoji { font-size: 1.1rem; }
+    .vote-row { grid-template-columns: 1fr; }
+    .pinball-meta { grid-template-columns: repeat(2, 1fr); }
+    .pb-bumper { padding: 0.9rem 0.2rem 0.7rem; font-size: 0.6rem; border-radius: 18px 18px 4px 4px; }
+    .pb-bumper-icon { font-size: 1.05rem; }
+    .pb-bumper-label { font-size: 0.6rem; }
+    .pb-stimulus { font-size: 0.98rem; }
+  }
+  @media (max-width: 480px) {
+    .mech-grid { grid-template-columns: repeat(2, 1fr); }
+    .options-grid { grid-template-columns: 1fr; }
+    .nav-pads { grid-template-columns: repeat(2, 1fr); }
+    .diagram-wrap { aspect-ratio: 3 / 5; min-height: 580px; }
+    .statue { width: 56%; }
+    .pb-bumper-label { font-size: 0.55rem; letter-spacing: 0.02em; }
+  }
+</style>
+</head>
+<body>
+<div class="coop-neuro">
+
+<!-- ============= MARQUEE ============= -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>🧱 WET CEMENT</span><span class="dot">●</span>
+    <span>BRAIN STILL SETTING</span><span class="dot">●</span>
+    <span>MYELIN: WRAPPING</span><span class="dot">●</span>
+    <span>BODY CLOCK: RUNNING LATE</span><span class="dot">●</span>
+    <span>DEFAULT MODE: LOOPING</span><span class="dot">●</span>
+    <span>ALARM ONLINE · BRAKE PENDING</span><span class="dot">●</span>
+    <span>PLASTICITY WINDOW: OPEN</span><span class="dot">●</span>
+    <span>FIVE MECHANISMS · ONE BUILD SITE</span><span class="dot">●</span>
+    <span>REAL LABS · REAL CITATIONS</span><span class="dot">●</span>
+    <span>STILL UNDER CONSTRUCTION</span><span class="dot">●</span>
+  </div>
+</div>
+
+<!-- ============= HERO ============= -->
+<section class="hero">
+  <div class="coop-tag">Mental Health Co-Op · Neuroscience</div>
+  <h1 class="title">WET<br>CEMENT</h1>
+  <div class="deck">the five mechanisms still building your brain <span class="blink">▮</span></div>
+
+  <div class="diagram-wrap">
+    <div class="stage"></div>
+
+    <svg class="arrows" viewBox="0 0 1000 700" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <marker id="arrowPink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff2e9a"/>
+        </marker>
+        <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#00f0ff"/>
+        </marker>
+        <marker id="arrowLime" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#c8ff00"/>
+        </marker>
+        <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#ffd23f"/>
+        </marker>
+      </defs>
+      <g fill="none" stroke-width="3" stroke-linecap="round">
+        <path d="M 130 110 Q 320 110 470 130" stroke="#ffd23f" marker-end="url(#arrowGold)"/>
+        <path d="M 880 130 Q 700 200 560 270" stroke="#ff2e9a" marker-end="url(#arrowPink)"/>
+        <path d="M 90 320 Q 250 310 360 320" stroke="#00f0ff" marker-end="url(#arrowCyan)"/>
+        <path d="M 910 310 Q 770 310 640 320" stroke="#c8ff00" marker-end="url(#arrowLime)"/>
+        <path d="M 140 540 Q 330 490 470 470" stroke="#c8ff00" marker-end="url(#arrowLime)"/>
+        <path d="M 890 580 Q 720 580 580 560" stroke="#00f0ff" marker-end="url(#arrowCyan)"/>
+        <path d="M 500 30 Q 500 80 500 120" stroke="#ff2e9a" marker-end="url(#arrowPink)"/>
+      </g>
+    </svg>
+
+    <div class="statue">
+      <div class="halo" aria-hidden="true"></div>
+      <div class="face-disc" role="img" aria-label="A brain mid-construction, neurally ascended">🧠</div>
+      <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e8e4d6"/>
+            <stop offset="40%" stop-color="#c9c2af"/>
+            <stop offset="100%" stop-color="#7a7363"/>
+          </linearGradient>
+          <linearGradient id="shadow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0.5"/>
+          </linearGradient>
+        </defs>
+        <polygon points="60,400 240,400 220,370 80,370" fill="url(#stone)"/>
+        <rect x="80" y="350" width="140" height="22" fill="url(#stone)"/>
+        <path d="M 130 110 L 170 110 L 178 160 L 230 175 L 245 195 L 235 210 L 178 195 L 188 350 L 112 350 L 122 195 L 65 210 L 55 195 L 70 175 L 122 160 Z"
+              fill="url(#stone)" stroke="#5a5447" stroke-width="2"/>
+        <rect x="0"   y="170" width="80"  height="35" rx="3" fill="url(#stone)" stroke="#5a5447" stroke-width="2"/>
+        <rect x="220" y="170" width="80"  height="35" rx="3" fill="url(#stone)" stroke="#5a5447" stroke-width="2"/>
+        <circle cx="6"   cy="187" r="14" fill="url(#stone)" stroke="#5a5447" stroke-width="2"/>
+        <circle cx="294" cy="187" r="14" fill="url(#stone)" stroke="#5a5447" stroke-width="2"/>
+        <rect x="140" y="95" width="20" height="25" fill="url(#stone)"/>
+        <circle cx="150" cy="75" r="42" fill="#0a0014" stroke="#5a5447" stroke-width="2"/>
+        <path d="M 130 110 L 170 110 L 188 350 L 112 350 Z" fill="url(#shadow)" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <div class="float-emoji" style="top: 8%;  left: 18%; animation-delay: 0s;">🧠</div>
+    <div class="float-emoji" style="top: 14%; right: 16%; animation-delay: 0.6s;">🌙</div>
+    <div class="float-emoji" style="bottom: 22%; left: 8%; animation-delay: 1.2s;">🪞</div>
+    <div class="float-emoji" style="bottom: 14%; right: 10%; animation-delay: 1.8s;">🚨</div>
+    <div class="float-emoji" style="top: 40%; left: 4%; animation-delay: 2.4s;">🧱</div>
+
+    <div class="aura-stat" style="top: 4%; right: 4%;">WINDOW<br>OPEN</div>
+
+    <div class="label gold" style="--rot:-3deg; top: 4%;  left: 2%;  max-width: 240px; white-space: normal;">
+      HALO: PLASTICITY WINDOW
+      <small>open · hensch 2005</small>
+    </div>
+    <div class="label" style="--rot: 4deg; top: 8%;  right: 2%; max-width: 220px; white-space: normal;">
+      AURA: BODY CLOCK
+      <small>melatonin · running late</small>
+    </div>
+    <div class="label cyan" style="--rot:-6deg; top: 42%; left: 1%;  max-width: 220px; white-space: normal;">
+      LEFT ARM: MYELIN
+      <small>axons wrapping · into the 20s</small>
+    </div>
+    <div class="label lime" style="--rot: 6deg; top: 42%; right: 1%; max-width: 220px; white-space: normal;">
+      RIGHT ARM: DEFAULT MODE
+      <small>self · the imaginary audience</small>
+    </div>
+    <div class="label lime" style="--rot:-2deg; bottom: 22%; left: 2%; max-width: 220px; white-space: normal;">
+      ROBE: AMYGDALA–PFC
+      <small>alarm leads · brake still wiring</small>
+    </div>
+    <div class="label cyan" style="--rot: 3deg; bottom: 6%; right: 4%; max-width: 220px; white-space: normal;">
+      PEDESTAL: REAL LABS · REAL CITATIONS
+      <small>not pop psych</small>
+    </div>
+    <div class="label red" style="--rot:-1deg; bottom: 6%; left: 50%; transform: translateX(-50%) rotate(-1deg);">
+      ⚠ STILL SETTING
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= CONTAINER + NAV ============= -->
+<div class="container">
+
+  <div class="section-header">
+    <h2>SOUND BOARD</h2>
+    <div class="meta">6 PAGES · <kbd>1</kbd>–<kbd>6</kbd> JUMPS · <span id="now-page">WELCOME</span></div>
+  </div>
+
+  <div class="nav-pads">
+    <button class="nav-pad active" data-page="0" onclick="showPage(0, this)">
+      <span class="pad-num">CUE 01</span>WELCOME
+    </button>
+    <button class="nav-pad" data-page="1" onclick="showPage(1, this)">
+      <span class="pad-num">CUE 02</span>THE SCIENCE
+    </button>
+    <button class="nav-pad" data-page="2" onclick="showPage(2, this)">
+      <span class="pad-num">CUE 03</span>MYTH BUST
+    </button>
+    <button class="nav-pad" data-page="3" onclick="showPage(3, this)">
+      <span class="pad-num">CUE 04</span>PINBALL
+    </button>
+    <button class="nav-pad" data-page="4" onclick="showPage(4, this)">
+      <span class="pad-num">CUE 05</span>DISCUSSION
+    </button>
+    <button class="nav-pad" data-page="5" onclick="showPage(5, this)">
+      <span class="pad-num">CUE 06</span>CLOSING
+    </button>
+  </div>
+
+  <!-- ============= PAGE 0: WELCOME ============= -->
+  <div class="page active">
+    <h3 class="page-h"><span class="timing-tag">8 to 10 MIN</span>About today</h3>
+    <p class="body">
+      Today covers five mechanisms still building your brain right now: <strong>myelination</strong>, the <strong>body clock</strong>, the <strong>default mode network</strong>, <strong>amygdala-prefrontal wiring</strong>, and <strong>critical-period plasticity</strong>. Each one is a real process with a real lab behind it. If you do not know those terms yet, you will by the end of the hour.
+    </p>
+    <p class="body">
+      Then we run a myth-bust game. You vote myth or fact, and you see what the data actually shows. The rule is you commit before the reveal, because predicting first is what makes the answer stick. Almost everything said about your brain online is half-right at best, and a lot of it gets used against you. Today is the actual research, with citations you can look up.
+    </p>
+
+    <div class="callout warm">
+      <div class="callout-label">CONFIDENTIALITY</div>
+      <p>What is shared here stays here. Names, stories, details, all protected. The only exception is safety: if someone is in danger, we get help.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">PASS</div>
+      <p><strong>You can pass at any point.</strong> No explanation needed. If a question does not fit right now, say "pass" and we move on.</p>
+    </div>
+
+    <hr class="divider">
+
+    <h3 class="page-h"><span class="timing-tag">10 to 12 MIN</span>Bridge questions</h3>
+    <p class="body">Share your name, then go through these in order. You do not have to give details. Just notice what comes up.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-q">What is alive for you right now? A thought, a song stuck in your head, something from the walk over, anything.</div>
+          <div class="step-hint">No theme yet. The room is just opening. Wherever you are when you walk in is where we start.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-q">What is your hottest take about how your brain works? The one an adult used on you, the TikTok one, the one you secretly believe. Bring it.</div>
+          <div class="step-hint">Whatever you bring, we will either confirm it with a citation or take it apart with one in the next hour.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-q">When was the last time your brain did something you could not talk it out of? Could not sleep when you needed to, snapped before you could stop, looped on one moment for an hour.</div>
+          <div class="step-hint">Each of those has a mechanism behind it. They show up in the five pads on the next page.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warm">
+      <div class="callout-label">FACILITATOR NOTE</div>
+      <p>Listen for which take in question 2 carries a charge: the "lazy" one, the "your brain isn't done till 25" one, the "you're just hormonal" one. Whichever lands loudest is the one to make sure a citation answers before the hour ends. The point of today is not trivia. It is handing back a more accurate story about a body that has been described to them, often unkindly, for years.</p>
+    </div>
+
+    <div class="page-nav">
+      <button class="ghost">&#8592; BACK</button>
+      <button onclick="showPage(1)">THE SCIENCE &#8594;</button>
+    </div>
+  </div>
+
+  <!-- ============= PAGE 1: THE SCIENCE ============= -->
+  <div class="page">
+    <h3 class="page-h"><span class="timing-tag">18 to 22 MIN</span>Smash a pad to open the mechanism</h3>
+    <p class="body">
+      Each pad is a separate process building your brain. Before you open one, take a second and predict what is going on inside it. Predicting first is what makes the reveal land. That is itself one of today's mechanisms.
+    </p>
+
+    <div class="mech-grid" id="mech-grid">
+      <button class="mech-pad" data-mech="0" onclick="toggleMech(0)">
+        <span class="mech-key">1</span>
+        <span class="mech-index">MECH 01</span>
+        <span class="mech-title">MYELINATION</span>
+        <span class="mech-status">WRAPPING</span>
+      </button>
+      <button class="mech-pad" data-mech="1" onclick="toggleMech(1)">
+        <span class="mech-key">2</span>
+        <span class="mech-index">MECH 02</span>
+        <span class="mech-title">THE BODY CLOCK</span>
+        <span class="mech-status">RUNNING LATE</span>
+      </button>
+      <button class="mech-pad" data-mech="2" onclick="toggleMech(2)">
+        <span class="mech-key">3</span>
+        <span class="mech-index">MECH 03</span>
+        <span class="mech-title">DEFAULT MODE NETWORK</span>
+        <span class="mech-status">LOOPING</span>
+      </button>
+      <button class="mech-pad" data-mech="3" onclick="toggleMech(3)">
+        <span class="mech-key">4</span>
+        <span class="mech-index">MECH 04</span>
+        <span class="mech-title">AMYGDALA–PFC</span>
+        <span class="mech-status">ALARM LEADS</span>
+      </button>
+      <button class="mech-pad" data-mech="4" onclick="toggleMech(4)">
+        <span class="mech-key">5</span>
+        <span class="mech-index">MECH 05</span>
+        <span class="mech-title">PLASTICITY WINDOW</span>
+        <span class="mech-status">OPEN</span>
+      </button>
+    </div>
+
+    <div id="mech-detail-host"></div>
+
+    <div class="callout warm">
+      <div class="callout-label">ONE MORE THING</div>
+      <p>These five do not run separately. They run as one build site. Slow myelination is why the brake lags the alarm in the amygdala-PFC circuit. A body clock running late means less sleep, which narrows what that circuit can handle the next day. The default mode network loops hardest when you are tired and stirred up. And the plasticity window is the reason all of it is changeable: every one of these is still being shaped by what you do, who you are around, and what you repeat. The brain is wet cement. It is going to set either way. The only question is what gets pressed into it.</p>
+    </div>
+
+    <div class="page-nav">
+      <button onclick="showPage(0)">&#8592; WELCOME</button>
+      <button onclick="showPage(2)">MYTH BUST &#8594;</button>
+    </div>
+  </div>
+
+  <!-- ============= PAGE 2: MYTH BUST ============= -->
+  <div class="page">
+    <h3 class="page-h"><span class="timing-tag">15 to 18 MIN</span>Commit before the reveal</h3>
+    <p class="body">
+      Read each one. Commit to <strong>myth</strong> or <strong>fact</strong> before you click. The rule: you pick a side, even if you are not sure. Predicting is the mechanism. Most people miss at least two of these.
+    </p>
+
+    <div class="game-meta">
+      <div class="game-counter"><span id="game-n">1</span> of 8</div>
+      <div class="game-bar-wrap"><div class="game-bar-fill" id="game-bar"></div></div>
+      <div class="game-score-display"><span id="game-right">0</span> right</div>
+    </div>
+
+    <div class="scenario-card">
+      <div class="scenario-setup" id="scenario-setup"></div>
+      <div class="scenario-text" id="scenario-text"></div>
+      <div class="vote-row">
+        <button class="vote-btn" id="btn-myth" onclick="vote('myth')">MYTH</button>
+        <button class="vote-btn" id="btn-fact" onclick="vote('fact')">FACT</button>
+      </div>
+      <div class="reveal-panel" id="reveal-panel">
+        <div class="reveal-verdict" id="reveal-verdict"></div>
+        <div class="reveal-why" id="reveal-why"></div>
+        <div class="reveal-citation" id="reveal-citation"></div>
+      </div>
+    </div>
+
+    <div class="game-controls">
+      <button class="game-next-btn" id="game-next" onclick="nextScenario()" style="display:none">NEXT &#8594;</button>
+      <button class="game-next-btn" id="game-reset" onclick="resetGame()" style="display:none">PLAY AGAIN</button>
+    </div>
+
+    <div id="game-end" style="display:none">
+      <div class="callout warm">
+        <div class="callout-label">FINAL SCORE</div>
+        <p><strong id="final-score"></strong></p>
+      </div>
+      <p class="body">The ones most people miss: "fully developed at 25" (it is a rough average, not a switch) and "lizard brain takes over" (both systems stay online, the wiring between them is just still maturing). If those tripped you up, that is the point. The popular version of all this is built to explain you to adults, not to you.</p>
+    </div>
+
+    <div class="page-nav">
+      <button onclick="showPage(1)">&#8592; THE SCIENCE</button>
+      <button onclick="showPage(3)">PINBALL &#8594;</button>
+    </div>
+  </div>
+
+  <!-- ============= PAGE 3: NEURAL PINBALL ============= -->
+  <div class="page">
+    <h3 class="page-h"><span class="timing-tag">12 to 15 MIN</span>Drop the ball</h3>
+    <p class="body">
+      Each ball drops a moment from your week onto the table. Pick the bumper it hits, the mechanism doing the most work. Quick reads, no overthinking. The multiplier climbs while you are hot. Streak resets on a miss. Every moment actually fires more than one process, so the call is which one fires <strong>first and hardest</strong>.
+    </p>
+
+    <div class="pinball-meta">
+      <div class="pb-stat"><div class="pb-stat-label">BALL</div><div class="pb-stat-val"><span id="pb-n">1</span> / 10</div></div>
+      <div class="pb-stat"><div class="pb-stat-label">MULTI</div><div class="pb-stat-val pb-multi-val">×<span id="pb-multi">1</span></div></div>
+      <div class="pb-stat"><div class="pb-stat-label">STREAK</div><div class="pb-stat-val pb-streak-val"><span id="pb-streak">0</span></div></div>
+      <div class="pb-stat"><div class="pb-stat-label">SCORE</div><div class="pb-stat-val pb-score-val"><span id="pb-score">0</span></div></div>
+    </div>
+
+    <div class="pinball-table">
+      <div class="pb-flash" id="pb-flash"></div>
+      <div class="pb-drop">
+        <div class="pb-ball" id="pb-ball"></div>
+        <div class="pb-stimulus" id="pb-stimulus"></div>
+      </div>
+      <div class="pb-bumpers" id="pb-bumpers">
+        <button class="pb-bumper" data-mech="myelin" onclick="hitBumper('myelin')">
+          <span class="pb-bumper-icon">🛣️</span>
+          <span class="pb-bumper-label">MYELIN</span>
+        </button>
+        <button class="pb-bumper" data-mech="clock" onclick="hitBumper('clock')">
+          <span class="pb-bumper-icon">🌙</span>
+          <span class="pb-bumper-label">CLOCK</span>
+        </button>
+        <button class="pb-bumper" data-mech="dmn" onclick="hitBumper('dmn')">
+          <span class="pb-bumper-icon">🪞</span>
+          <span class="pb-bumper-label">DMN</span>
+        </button>
+        <button class="pb-bumper" data-mech="amygpfc" onclick="hitBumper('amygpfc')">
+          <span class="pb-bumper-icon">🚨</span>
+          <span class="pb-bumper-label">AMYG–PFC</span>
+        </button>
+        <button class="pb-bumper" data-mech="plasticity" onclick="hitBumper('plasticity')">
+          <span class="pb-bumper-icon">🧱</span>
+          <span class="pb-bumper-label">WINDOW</span>
+        </button>
+      </div>
+      <div class="pb-reveal" id="pb-reveal"></div>
+    </div>
+
+    <div class="pb-controls">
+      <button class="game-next-btn" id="pb-next" onclick="nextBall()" style="display:none">NEXT BALL &#8594;</button>
+      <button class="game-next-btn" id="pb-reset" onclick="resetPinball()" style="display:none">RACK 'EM AGAIN</button>
+    </div>
+
+    <div id="pb-end" style="display:none">
+      <div class="callout warm">
+        <div class="callout-label">FINAL SCORE</div>
+        <p><strong id="pb-final"></strong></p>
+      </div>
+      <p class="body">
+        Every moment fires more than one process. The dominant one was the call. If your gut kept landing on <em>clock</em>, sleep might be carrying more weight in your week than you think. If you kept landing on <em>DMN</em>, you might be living a lot in your own head. If you kept landing on <em>amyg-pfc</em>, the alarm is running ahead of the brake right now. None of those are flaws. They are read-outs.
+      </p>
+    </div>
+
+    <div class="page-nav">
+      <button onclick="showPage(2)">&#8592; MYTH BUST</button>
+      <button onclick="showPage(4)">DISCUSSION &#8594;</button>
+    </div>
+  </div>
+
+  <!-- ============= PAGE 4: DISCUSSION ============= -->
+  <div class="page">
+    <h3 class="page-h"><span class="timing-tag">10 to 12 MIN</span>Open it up</h3>
+    <p class="body">
+      Take these wherever the room goes. You do not have to answer every one.
+    </p>
+
+    <div class="questions">
+      <div class="question">
+        <div class="question-label">THE 25 THING</div>
+        <div class="question-text">Adults love "your brain isn't done until 25," sometimes as a put-down, sometimes as an excuse. Knowing the white matter actually keeps maturing through your 20s with no on-switch, how do you want to use that fact, and how do you not want it used on you?</div>
+      </div>
+      <div class="question">
+        <div class="question-label">THE CLOCK</div>
+        <div class="question-text">If your body clock is genuinely set late right now and the schedule is fixed early, what is actually in your control and what is not? Where does "just have more discipline" stop being a fair thing to say to you?</div>
+        <div class="question-note">Not a setup for a sleep-hygiene lecture. A real question about which part is biology and which part is choice.</div>
+      </div>
+      <div class="question">
+        <div class="question-label">THE LOOP</div>
+        <div class="question-text">The default mode network is great at building who you are and terrible at letting an embarrassing moment go. Where is yours most useful to you, and where does it cost you the most?</div>
+      </div>
+      <div class="question">
+        <div class="question-label">THE GAP</div>
+        <div class="question-text">The alarm matures before the brake. That gap closes with time and with practice, not just with age. So what would you actually practice? What does a rep for the brake even look like in a real moment?</div>
+        <div class="question-note">This tends to land. Let it sit before anyone rushes to answer.</div>
+      </div>
+      <div class="question">
+        <div class="question-label">THE WINDOW</div>
+        <div class="question-text">Plasticity has no opinion about you. The same open window that makes a skill stick fast makes harm stick fast. Knowing this window will not stay this open, what do you want to point it at while it is?</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>If someone brings up something real, sit with it. These five processes explain things that have felt personal and confusing for years. Hearing "that was a mechanism, not a character flaw" lands differently than abstract discussion.</p>
+    </div>
+
+    <div class="page-nav">
+      <button onclick="showPage(3)">&#8592; PINBALL</button>
+      <button onclick="showPage(5)">CLOSING &#8594;</button>
+    </div>
+  </div>
+
+  <!-- ============= PAGE 5: CLOSING ============= -->
+  <div class="page">
+    <h3 class="page-h"><span class="timing-tag">5 MIN</span>Pick one experiment</h3>
+    <p class="body">
+      One experiment between now and next session. Not all of them. Pick the one that hooked your attention most, and commit to noticing specifically.
+    </p>
+
+    <div class="options-grid">
+      <div class="option" onclick="selectOption(this)">
+        <div class="option-label">SHIFT THE CLOCK</div>
+        <div class="option-desc">For three nights, dim screens 45 minutes before bed and get bright light in your eyes within 30 minutes of waking. You are nudging the melatonin clock with the lever you actually control. Notice if falling asleep gets any easier.</div>
+      </div>
+      <div class="option" onclick="selectOption(this)">
+        <div class="option-label">CATCH THE LOOP</div>
+        <div class="option-desc">Once a day, catch the default mode replaying one moment and name it: "that's the loop." You are not stopping it, you are noticing the network is stuck in one mode. Naming it is the first interrupt.</div>
+      </div>
+      <div class="option" onclick="selectOption(this)">
+        <div class="option-label">NAME THE GAP</div>
+        <div class="option-desc">One time this week, when the alarm fires before the brake, name it in the moment: "alarm's ahead of the brake right now." Buying three seconds before you react is the prefrontal circuit doing a rep.</div>
+      </div>
+      <div class="option" onclick="selectOption(this)">
+        <div class="option-label">POINT THE WINDOW</div>
+        <div class="option-desc">Pick one thing worth wiring in deep right now, a skill, a language, a sport, and do 15 minutes of it daily this week. You are spending sensitive-period plasticity on purpose instead of by accident.</div>
+      </div>
+      <div class="option" onclick="selectOption(this)">
+        <div class="option-label">PROTECT THE WINDOW</div>
+        <div class="option-desc">Pick one thing you do not want wiring in deep, and skip it once this week where you normally would not. Same plasticity, opposite vote. The window does not care which way you point it.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <h3 class="page-h">One sentence checkout</h3>
+    <p class="body">
+      Before you go, one takeaway and one specific plan. Specific means naming <strong>when, where, and what will be different</strong>. "I will sleep better" is not a plan. "Tonight I am putting my phone across the room at 10:30" is a plan.
+    </p>
+
+    <div class="callout warm">
+      <div class="callout-label">FACILITATOR NOTE</div>
+      <p>Push for specificity. Vague plans do not reinforce anything. If someone says "I'll pay more attention to my brain," reflect the vagueness and ask for a when, where, and what. Refusing to accept the first soft version is itself a form of respect: it says you think they can actually do the thing.</p>
+    </div>
+
+    <div class="page-nav">
+      <button onclick="showPage(4)">&#8592; DISCUSSION</button>
+      <button onclick="showPage(0)">START OVER</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>Crisis resources</strong><br>
+  988 Suicide &amp; Crisis Lifeline: call or text <strong>988</strong> &middot;
+  Crisis Text Line: text <strong>HOME</strong> to 741741
+  <span class="coop-credit">Mental Health Co-Op · Neuroscience · facilitated by Brian Nuckols, MA, LPC-A</span>
+</footer>
+
+<script>
+  // ============= MECHANISMS =============
+  const mechanisms = [
+    {
+      title: "Myelination",
+      head: "Glial cells wrap your axons in myelin, the fatty insulation that speeds signals up to roughly 100 times. Frontal white matter keeps maturing into your mid-20s. The brakes get wired last.",
+      paragraphs: [
+        "Brain development is not just about growing more. Across childhood, gray matter (the cell bodies) peaks and then gets pruned, while <strong>white matter</strong> (the myelin-wrapped wiring) keeps increasing in a roughly straight line into the 20s. Jay Giedd's longitudinal MRI study at the NIH tracked the same people over years and mapped this curve. Myelin lets an axon fire faster and recover faster, so the long-range, front-to-back connections become fast and reliable <em>later</em> than the local ones.",
+        "The <strong>prefrontal cortex</strong>, the region behind judgment, planning, and impulse control, is among the last to fully myelinate. Meanwhile the emotional and reward systems are already strong. That timing mismatch is the real engine behind the cliché that you “act without thinking.” It is not missing hardware. It is a connection that is still being insulated.",
+        "Christina Lebel and Christian Beaulieu used diffusion MRI to show white-matter tracts continue maturing into the late 20s and beyond, with frontal-temporal connections among the slowest. And myelination is partly <em>activity-dependent</em>: circuits you use a lot get insulated faster. What you practice does not just get learned, it gets wired in physically."
+      ],
+      aside: "The brakes are not broken. They are still being wrapped. The wrapping is most of the way there around the mid-20s, and it never fully stops.",
+      citation: "Giedd, J.N. et al. (1999). Brain development during childhood and adolescence: a longitudinal MRI study. Nature Neuroscience, 2(10), 861-863. · Lebel, C. & Beaulieu, C. (2011). Longitudinal development of human brain wiring continues from childhood into adulthood. Journal of Neuroscience, 31(30), 10937-10947.",
+      caveat: "Caveat: \"the brain isn't done until 25\" is a media rounding of this research. Maturation is continuous, varies a lot person to person and tract to tract, and has no finish-line birthday. Treat 25 as a rough average, not a switch that flips."
+    },
+    {
+      title: "The Body Clock",
+      head: "Your body clock shifts later as you develop. Melatonin releases later at night, so \"just go to bed earlier\" is fighting your own biology.",
+      paragraphs: [
+        "Mary Carskadon's sleep research showed that as you develop the circadian clock <strong>phase-delays</strong>: the brain starts releasing melatonin later in the evening, and sleep pressure builds more slowly at night. The result, right now, is that you are biologically wired to fall asleep later, often not feeling sleepy until 11pm or after. This is a measured shift in the clock, not a habit.",
+        "The need for sleep does not drop. You still need roughly <strong>8 to 10 hours</strong>. Pair a late sleep onset with a school start around 7:30 or 8am and you get chronic sleep restriction, sometimes called <em>social jetlag</em>: the body is on one timezone and the schedule is on another. Sleep loss narrows emotional control, raises amygdala reactivity to stress, and blocks the overnight consolidation that turns studying into memory.",
+        "This is why \"lazy\" is the wrong word. The American Academy of Pediatrics formally recommends later middle and high school start times for exactly this reason. The levers you do control are light and timing: bright light in the morning and dimmer light and fewer screens at night actually shift the clock earlier over days."
+      ],
+      aside: "Someone who cannot fall asleep at 10 and cannot wake at 6 is not undisciplined. The melatonin clock got pushed late by a developmental shift, and the alarm is set against it.",
+      citation: "Crowley, S.J., Wolfson, A.R., Tarokh, L., & Carskadon, M.A. (2018). An update on adolescent sleep: New evidence informing the perfect storm model. Journal of Adolescence, 67, 55-65. · American Academy of Pediatrics (2014). School start times for adolescents. Pediatrics, 134(3), 642-649.",
+      caveat: "Caveat: the phase delay is real, but screens, caffeine, and schedules amplify it. Biology sets the tendency to run late; environment can make it worse or better. Both levers are real, which is the hopeful part."
+    },
+    {
+      title: "Default Mode Network",
+      head: "The network that runs when you are not on task: thinking about yourself, replaying moments, imagining what others think of you. It comes online hard right around now.",
+      paragraphs: [
+        "The <strong>default mode network</strong> (mostly the medial prefrontal cortex and the posterior cingulate, among others) lights up when you are not focused on the outside world, during rest, daydreaming, and especially <em>self-referential thought</em>. Jennifer Pfeifer's work shows the medial prefrontal cortex gets recruited more at this stage of life than later, when thinking about yourself and when imagining being judged by others.",
+        "This is the machinery behind self-consciousness and the classic \"<strong>imaginary audience</strong>,\" the gut certainty that everyone is watching and evaluating you. The same network that lets you build an identity and model other people's minds is also the one that loops on \"what did they think when I said that.\" Repetitive negative thinking, or rumination, rides this network when it gets stuck.",
+        "Jessica Andrews-Hanna maps the default network's real job as <em>internal mentation</em>: remembering, imagining the future, and thinking about other people. Right now, with social stakes spiking, the volume on this network gets turned up. That is useful, it is how you figure out who you are, and it is costly when it will not switch off."
+      ],
+      aside: "The feeling that everyone is watching is not just insecurity. It has a brain signature. Knowing that does not make it vanish, but it makes it a process instead of a verdict on you.",
+      citation: "Pfeifer, J.H. et al. (2009). Neural correlates of direct and reflected self-appraisals in adolescents and adults. Child Development, 80(4), 1016-1038. · Andrews-Hanna, J.R. (2012). The brain's default network and its adaptive role in internal mentation. The Neuroscientist, 18(3), 251-270.",
+      caveat: "Caveat: the default mode network is not a \"rumination center.\" It powers memory, imagination, and social understanding. Rumination is the network stuck in one gear, not the network itself being the problem."
+    },
+    {
+      title: "Amygdala–PFC",
+      head: "The wiring between the threat alarm (amygdala) and the regulator (prefrontal cortex) is still under construction. Until it matures, emotion gets there first.",
+      paragraphs: [
+        "The <strong>amygdala</strong> flags what matters and what threatens, fast and below conscious awareness. The <strong>prefrontal cortex</strong> is what puts a brake on that signal, adding context and second thoughts. The connection between them strengthens as you grow up. Dylan Gee's research showed the functional connectivity between amygdala and medial prefrontal cortex actually <em>flips</em> from childhood onward as the top-down regulatory circuit comes online.",
+        "Right now, amygdala reactivity to emotional faces and social threat runs high while that top-down brake is still being wired. That is the mechanical reason emotional intensity can outrun regulation: the alarm is loud and early, the dampener is still under construction. B.J. Casey's <em>dual-systems</em> model describes exactly this gap between a fast emotional system and a slower control system.",
+        "The wiring is shaped by experience, and it is sensitive to early stress. Gee found that chronic early adversity can push amygdala-PFC coupling to look \"mature\" ahead of schedule, which is a stress adaptation, not an upgrade. The flip side is the hopeful one: because the circuit is plastic, safe relationships and repeated practice physically change it."
+      ],
+      aside: "Big feelings are not a character defect. The alarm matures before the brake, and the gap is the design for a few more years. It closes with practice, not only with age.",
+      citation: "Gee, D.G. et al. (2013). A developmental shift from positive to negative connectivity in human amygdala-prefrontal circuitry. Journal of Neuroscience, 33(10), 4584-4593. · Casey, B.J. (2015). Beyond simple models of self-control: Incentives, brain development, and behavior. Annual Review of Psychology, 66, 295-319.",
+      caveat: "Caveat: \"lizard brain versus rational brain\" is a cartoon. The amygdala is not irrational and the prefrontal cortex is not pure logic. They are a loop, and both are online the whole time. What changes is the strength and timing of the connection between them."
+    },
+    {
+      title: "Plasticity Window",
+      head: "Glutamate excites, GABA inhibits. The shifting balance between them opens and closes \"sensitive periods\" when the brain learns fastest. This is one of the last big windows.",
+      paragraphs: [
+        "Learning runs on the balance between <strong>excitatory</strong> signaling (mostly glutamate) and <strong>inhibitory</strong> signaling (mostly GABA). Takao Hensch showed that the maturation of inhibitory circuits, specific GABA interneurons, is what <em>opens and then closes</em> critical periods of plasticity. Before that inhibition matures, circuits are wide open to being shaped. After, they stabilize and hold their form.",
+        "Right now is a sensitive period for the prefrontal cortex itself. Beatriz Luna and Bart Larsen reviewed the evidence that the excitation-inhibition balance is still shifting in the PFC at this stage, which keeps it unusually <strong>plastic</strong>: high capacity to learn, and high vulnerability to harm. This is why habits, identities, and unfortunately addictions that form now can wire in deep and stubborn.",
+        "The plasticity cuts both ways with no preference. It is why a language, an instrument, or a sport picked up now tends to stick for life, and why substance use or trauma now can leave a deeper, longer mark than the same exposure at 35. The window is a real advantage with a real cost attached, and it does not stay this open."
+      ],
+      aside: "The same open window that makes learning fast right now is the window that makes harm stick. Plasticity has no moral preference. You point it; it does not point itself.",
+      citation: "Hensch, T.K. (2005). Critical period plasticity in local cortical circuits. Nature Reviews Neuroscience, 6(11), 877-888. · Larsen, B. & Luna, B. (2018). Adolescence as a neurobiological critical period for the development of higher-order cognition. Neuroscience & Biobehavioral Reviews, 94, 179-195.",
+      caveat: "Caveat: critical periods are not hard doors that slam shut at a fixed age. They are stretches of heightened, then reduced, plasticity. Adult brains still change, the change is just slower. Right now is the discount window, not the only window."
+    }
+  ];
+
+  let openMech = null;
+
+  function toggleMech(i) {
+    const pads = document.querySelectorAll('.mech-pad');
+    const host = document.getElementById('mech-detail-host');
+
+    if (openMech === i) {
+      pads[i].classList.remove('open');
+      host.innerHTML = '';
+      openMech = null;
+      return;
+    }
+
+    pads.forEach(p => p.classList.remove('open'));
+    pads[i].classList.add('open');
+    openMech = i;
+
+    const m = mechanisms[i];
+    const paragraphs = m.paragraphs.map(p => '<p>' + p + '</p>').join('');
+    const aside = m.aside ? '<div class="aside">' + m.aside + '</div>' : '';
+    const caveat = m.caveat ? '<div class="caveat">' + m.caveat + '</div>' : '';
+
+    host.innerHTML = `
+      <div class="mech-detail show">
+        <h4>${m.title.toUpperCase()}</h4>
+        <p><strong>${m.head}</strong></p>
+        ${paragraphs}
+        ${aside}
+        ${caveat}
+        <div class="citation">${m.citation}</div>
+      </div>
+    `;
+    host.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ============= MYTH BUST GAME =============
+  const scenarios = [
+    {
+      setup: "THE 25 RULE",
+      text: "Your brain is fully finished developing the day you turn 25.",
+      answer: "myth",
+      verdictText: "MYTH",
+      why: "White-matter maturation is continuous and varies by person and by brain region. Tracts keep developing into the late 20s and beyond. 25 is a rough population average that got rounded into a hard deadline. There is no birthday where development switches off.",
+      citation: "Lebel, C. & Beaulieu, C. (2011). Longitudinal development of human brain wiring continues from childhood into adulthood. Journal of Neuroscience, 31(30), 10937-10947."
+    },
+    {
+      setup: "NIGHT OWL",
+      text: "If you cannot fall asleep before midnight, you are just being undisciplined.",
+      answer: "myth",
+      verdictText: "MYTH",
+      why: "A developmental shift phase-delays the circadian clock. Melatonin releases later, so the brain genuinely is not ready for sleep as early as it used to be. The late sleep onset is biology first. Discipline can shift it some, but calling it laziness misreads the mechanism.",
+      citation: "Crowley, S.J. et al. (2018). An update on adolescent sleep. Journal of Adolescence, 67, 55-65."
+    },
+    {
+      setup: "EARLY BELL",
+      text: "Later school start times measurably improve sleep and mood.",
+      answer: "fact",
+      verdictText: "FACT",
+      why: "When schools push start times later, students sleep more, and studies link the extra sleep to better mood, attendance, and even fewer car crashes. The American Academy of Pediatrics recommends later starts specifically because of this developmental clock shift.",
+      citation: "American Academy of Pediatrics (2014). School start times for adolescents (policy statement). Pediatrics, 134(3), 642-649."
+    },
+    {
+      setup: "IMAGINARY AUDIENCE",
+      text: "The feeling that everyone is watching you has a measurable brain basis.",
+      answer: "fact",
+      verdictText: "FACT",
+      why: "Imagining being evaluated by others activates the medial prefrontal cortex and default mode network, and this activity runs especially high at this stage of life, even with physical signs like blushing. The 'imaginary audience' is not just insecurity, it has a real neural signature.",
+      citation: "Somerville, L.H. et al. (2013). The medial prefrontal cortex and the emergence of self-conscious emotion in adolescence. Psychological Science, 24(8), 1554-1562."
+    },
+    {
+      setup: "MYELIN",
+      text: "Myelin only insulates the brain in early childhood and is finished long before now.",
+      answer: "myth",
+      verdictText: "MYTH",
+      why: "Myelination continues well into adulthood, with frontal connections among the slowest to finish. It is also activity-dependent: circuits you use get insulated faster. The wiring is still being laid down right through your 20s, not frozen in childhood.",
+      citation: "Lebel, C. & Beaulieu, C. (2011). Journal of Neuroscience, 31(30), 10937-10947."
+    },
+    {
+      setup: "THE BRAKE",
+      text: "Right now, the emotional alarm matures before the regulatory brake.",
+      answer: "fact",
+      verdictText: "FACT",
+      why: "The amygdala is highly reactive early, while amygdala-prefrontal connectivity, the top-down brake, keeps maturing as you grow up and even flips sign as it comes online. The gap between a fast alarm and a still-wiring brake is well documented.",
+      citation: "Gee, D.G. et al. (2013). A developmental shift from positive to negative connectivity in human amygdala-prefrontal circuitry. Journal of Neuroscience, 33(10), 4584-4593."
+    },
+    {
+      setup: "PLASTICITY",
+      text: "Because you learn fast right now, harmful things you are exposed to can also wire in more deeply.",
+      answer: "fact",
+      verdictText: "FACT",
+      why: "Heightened plasticity is a double edge. The same sensitive-period openness that makes skills and languages stick also makes substance use and trauma leave deeper marks now than the same exposure later. Plasticity has no preference about what it wires in.",
+      citation: "Larsen, B. & Luna, B. (2018). Adolescence as a neurobiological critical period for the development of higher-order cognition. Neuroscience & Biobehavioral Reviews, 94, 179-195."
+    },
+    {
+      setup: "LIZARD BRAIN",
+      text: "You act on emotion because the rational brain is offline and the lizard brain takes over.",
+      answer: "myth",
+      verdictText: "MYTH",
+      why: "Both systems are online the whole time. There is no switch where the 'rational brain' shuts off. What is actually happening is that the connection between the fast emotional system and the slower control system is still maturing. It is a loop with developing wiring, not a takeover.",
+      citation: "Casey, B.J. (2015). Beyond simple models of self-control. Annual Review of Psychology, 66, 295-319."
+    }
+  ];
+
+  let gameIndex = 0;
+  let gameScore = 0;
+  let gameAnswered = false;
+
+  function loadScenario(i) {
+    const s = scenarios[i];
+    gameAnswered = false;
+    document.getElementById('scenario-setup').textContent = s.setup;
+    document.getElementById('scenario-text').textContent = s.text;
+    document.getElementById('reveal-panel').classList.remove('show');
+    document.getElementById('reveal-verdict').textContent = '';
+    document.getElementById('reveal-why').textContent = '';
+    document.getElementById('reveal-citation').textContent = '';
+    const mythBtn = document.getElementById('btn-myth');
+    const factBtn = document.getElementById('btn-fact');
+    mythBtn.disabled = false;
+    factBtn.disabled = false;
+    mythBtn.className = 'vote-btn';
+    factBtn.className = 'vote-btn';
+    document.getElementById('game-next').style.display = 'none';
+    document.getElementById('game-reset').style.display = 'none';
+    document.getElementById('game-end').style.display = 'none';
+    document.getElementById('game-n').textContent = i + 1;
+    document.getElementById('game-bar').style.width = (i / scenarios.length * 100) + '%';
+  }
+
+  function vote(choice) {
+    if (gameAnswered) return;
+    gameAnswered = true;
+    const s = scenarios[gameIndex];
+    const isCorrect = choice === s.answer;
+    if (isCorrect) gameScore++;
+
+    const mythBtn = document.getElementById('btn-myth');
+    const factBtn = document.getElementById('btn-fact');
+    mythBtn.disabled = true;
+    factBtn.disabled = true;
+
+    const btnMap = { myth: mythBtn, fact: factBtn };
+    btnMap[s.answer].classList.add('correct');
+    if (!isCorrect) btnMap[choice].classList.add('wrong');
+
+    const verdictEl = document.getElementById('reveal-verdict');
+    verdictEl.textContent = s.verdictText;
+    verdictEl.className = 'reveal-verdict ' + (s.answer === 'fact' ? 'is-fact' : 'is-myth');
+    document.getElementById('reveal-why').textContent = s.why;
+    document.getElementById('reveal-citation').textContent = s.citation;
+    document.getElementById('reveal-panel').classList.add('show');
+    document.getElementById('game-right').textContent = gameScore;
+
+    if (gameIndex < scenarios.length - 1) {
+      document.getElementById('game-next').style.display = 'inline-block';
+    } else {
+      document.getElementById('game-bar').style.width = '100%';
+      document.getElementById('final-score').textContent = gameScore + ' out of ' + scenarios.length;
+      document.getElementById('game-end').style.display = 'block';
+      document.getElementById('game-reset').style.display = 'inline-block';
+    }
+  }
+
+  function nextScenario() {
+    gameIndex++;
+    loadScenario(gameIndex);
+  }
+
+  function resetGame() {
+    gameIndex = 0;
+    gameScore = 0;
+    document.getElementById('game-right').textContent = 0;
+    loadScenario(0);
+  }
+
+  // ============= PINBALL =============
+  const balls = [
+    {
+      stim: "It is 1 a.m. and you are wide awake even though you have school at 7.",
+      answer: "clock",
+      why: "A developmental phase delay pushed your melatonin release late. The clock, not willpower, is why sleep will not come on command at the hour the schedule wants."
+    },
+    {
+      stim: "You replay one awkward thing you said in class on a loop for an hour.",
+      answer: "dmn",
+      why: "The default mode network running self-referential thought, stuck in one gear. The loop is the network doing its job, just refusing to switch off."
+    },
+    {
+      stim: "A small comment from a friend and you are suddenly furious before you can think.",
+      answer: "amygpfc",
+      why: "The amygdala alarm fires fast and early. The prefrontal brake is still wiring, so the feeling gets there before the second thought does."
+    },
+    {
+      stim: "After two weeks of daily practice, the guitar riff suddenly feels automatic.",
+      answer: "myelin",
+      why: "Repeated practice insulates the axons coordinating the movement. The 'suddenly automatic' feeling is myelin making the circuit fast and reliable."
+    },
+    {
+      stim: "You pick up the new language way faster than your dad does.",
+      answer: "plasticity",
+      why: "Your excitation-inhibition balance keeps the cortex in a sensitive period right now. The learning window is wider open for you than for an adult brain."
+    },
+    {
+      stim: "You walk into the cafeteria certain that everyone is looking at you.",
+      answer: "dmn",
+      why: "Heightened medial prefrontal self and social processing, the imaginary audience. The certainty that you are being watched has a real network behind it."
+    },
+    {
+      stim: "One bad night of sleep and everything the next day feels like too much.",
+      answer: "clock",
+      why: "Sleep loss narrows what you can regulate and spikes amygdala reactivity. The stressor did not get bigger, your threshold dropped overnight."
+    },
+    {
+      stim: "You tried a vape at a party and three weeks later you are thinking about it constantly.",
+      answer: "plasticity",
+      why: "Sensitive-period plasticity wires reward learning in deep and fast. The same open window that speeds up skill learning entrenches this just as efficiently."
+    },
+    {
+      stim: "You make a risky call with friends that you would never make alone.",
+      answer: "amygpfc",
+      why: "Peers raise the emotional and reward signal, pushing the gas pedal while the prefrontal brake is still maturing. The dual-systems gap is widest exactly here."
+    },
+    {
+      stim: "You finally get algebra after weeks of it not clicking, and now it feels obvious.",
+      answer: "myelin",
+      why: "Weeks of effortful repetition got the circuit insulated. 'Now it's obvious' is the pathway becoming fast and automatic through activity-dependent myelination."
+    }
+  ];
+
+  const mechFull = {
+    myelin: "MYELINATION",
+    clock: "THE BODY CLOCK",
+    dmn: "DEFAULT MODE NETWORK",
+    amygpfc: "AMYGDALA–PFC",
+    plasticity: "PLASTICITY WINDOW"
+  };
+
+  let pbIndex = 0;
+  let pbScore = 0;
+  let pbMulti = 1;
+  let pbStreak = 0;
+  let pbMaxStreak = 0;
+  let pbAnswered = false;
+
+  function loadBall(i) {
+    const b = balls[i];
+    pbAnswered = false;
+    document.getElementById('pb-stimulus').textContent = b.stim;
+    document.getElementById('pb-n').textContent = i + 1;
+    document.querySelectorAll('.pb-bumper').forEach(bumper => {
+      bumper.disabled = false;
+      bumper.classList.remove('hit', 'miss', 'correct-flash');
+    });
+    const reveal = document.getElementById('pb-reveal');
+    reveal.classList.remove('show', 'is-hit', 'is-miss');
+    reveal.innerHTML = '';
+    document.getElementById('pb-next').style.display = 'none';
+    document.getElementById('pb-reset').style.display = 'none';
+    document.getElementById('pb-end').style.display = 'none';
+
+    const ball = document.getElementById('pb-ball');
+    ball.style.transition = 'none';
+    ball.style.opacity = '0';
+    ball.style.transform = 'translateX(-50%) translateY(-30px)';
+    requestAnimationFrame(() => {
+      ball.style.transition = 'opacity 0.4s ease, transform 0.5s cubic-bezier(.6,.05,.45,1.4)';
+      ball.style.opacity = '1';
+      ball.style.transform = 'translateX(-50%) translateY(0)';
+    });
+  }
+
+  function flashTable(color) {
+    const flash = document.getElementById('pb-flash');
+    flash.style.background = color;
+    flash.style.opacity = '0.6';
+    setTimeout(() => { flash.style.opacity = '0'; }, 300);
+  }
+
+  function hitBumper(mech) {
+    if (pbAnswered) return;
+    pbAnswered = true;
+    const b = balls[pbIndex];
+    const isHit = mech === b.answer;
+
+    document.querySelectorAll('.pb-bumper').forEach(bumper => bumper.disabled = true);
+
+    const clicked = document.querySelector(`.pb-bumper[data-mech="${mech}"]`);
+    const correct = document.querySelector(`.pb-bumper[data-mech="${b.answer}"]`);
+
+    if (isHit) {
+      clicked.classList.add('hit');
+      pbStreak++;
+      pbMaxStreak = Math.max(pbMaxStreak, pbStreak);
+      if (pbStreak >= 5) pbMulti = 3;
+      else if (pbStreak >= 3) pbMulti = 2;
+      else pbMulti = 1;
+      pbScore += 100 * pbMulti;
+      flashTable('rgba(200, 255, 0, 0.4)');
+    } else {
+      clicked.classList.add('miss');
+      setTimeout(() => correct.classList.add('correct-flash'), 350);
+      pbStreak = 0;
+      pbMulti = 1;
+      pbScore += 25;
+      flashTable('rgba(255, 51, 68, 0.4)');
+    }
+
+    document.getElementById('pb-score').textContent = pbScore;
+    document.getElementById('pb-multi').textContent = pbMulti;
+    document.getElementById('pb-streak').textContent = pbStreak;
+
+    const reveal = document.getElementById('pb-reveal');
+    reveal.classList.add('show', isHit ? 'is-hit' : 'is-miss');
+    const verdict = isHit
+      ? `🎯 HIT · ${mechFull[b.answer]} · +${100 * pbMulti}${pbMulti > 1 ? ' (×' + pbMulti + ')' : ''}`
+      : `💢 MISS · IT WAS ${mechFull[b.answer]} · +25`;
+    reveal.innerHTML = `<div class="pb-verdict">${verdict}</div><div class="pb-why">${b.why}</div>`;
+
+    if (pbIndex < balls.length - 1) {
+      document.getElementById('pb-next').style.display = 'inline-block';
+    } else {
+      document.getElementById('pb-final').textContent = pbScore + ' · max streak ' + pbMaxStreak;
+      document.getElementById('pb-end').style.display = 'block';
+      document.getElementById('pb-reset').style.display = 'inline-block';
+    }
+  }
+
+  function nextBall() {
+    pbIndex++;
+    loadBall(pbIndex);
+  }
+
+  function resetPinball() {
+    pbIndex = 0;
+    pbScore = 0;
+    pbMulti = 1;
+    pbStreak = 0;
+    pbMaxStreak = 0;
+    document.getElementById('pb-score').textContent = 0;
+    document.getElementById('pb-multi').textContent = 1;
+    document.getElementById('pb-streak').textContent = 0;
+    loadBall(0);
+  }
+
+  // ============= PAGE NAV =============
+  const pageNames = ['WELCOME', 'THE SCIENCE', 'MYTH BUST', 'PINBALL', 'DISCUSSION', 'CLOSING'];
+
+  function showPage(i, btn) {
+    document.querySelectorAll('.page').forEach((p, j) => p.classList.toggle('active', j === i));
+    document.querySelectorAll('.nav-pad').forEach((b, j) => b.classList.toggle('active', j === i));
+    document.getElementById('now-page').textContent = pageNames[i];
+    window.scrollTo({ top: document.querySelector('.section-header').offsetTop - 20, behavior: 'smooth' });
+  }
+
+  function selectOption(el) {
+    el.closest('.options-grid').querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Keyboard shortcuts: 1-6 jump pages; on the science page, 1-5 open mechanisms
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const k = e.key;
+    if (['1','2','3','4','5','6'].includes(k)) {
+      const idx = parseInt(k, 10) - 1;
+      const sciencePage = document.querySelectorAll('.page')[1];
+      if (sciencePage && sciencePage.classList.contains('active') && idx < 5) {
+        toggleMech(idx);
+      } else if (idx < 6) {
+        showPage(idx);
+      }
+    }
+  });
+
+  loadScenario(0);
+  loadBall(0);
+</script>
+</div>
+</body>
+</html>
